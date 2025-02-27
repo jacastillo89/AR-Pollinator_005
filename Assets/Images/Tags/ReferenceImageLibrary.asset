@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5048127410955335528
+  m_GuidHigh: 3348768710381092267
+  m_DataStore:
+    m_Storage: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5276941747420954555
+      m_GuidHigh: 6741273215232096645
+    m_SerializedTextureGuid:
+      m_GuidLow: 9386797231402020269
+      m_GuidHigh: 4905462015140191896
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: BumbleBee
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4630768711676252278
+      m_GuidHigh: 7060878605165857673
+    m_SerializedTextureGuid:
+      m_GuidLow: 14701095364939884991
+      m_GuidHigh: 462459261357580664
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Honeybees
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4786381332373487041
+      m_GuidHigh: 3100653538684360342
+    m_SerializedTextureGuid:
+      m_GuidLow: 11886354871399860412
+      m_GuidHigh: 2393329900657857480
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: NativeGarden
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5377287149860722780
+      m_GuidHigh: 9899554144572722364
+    m_SerializedTextureGuid:
+      m_GuidLow: 16569943777941294053
+      m_GuidHigh: 10613722072831757771
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: NativeGarden
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5100995063727799563
+      m_GuidHigh: 1759722081901161138
+    m_SerializedTextureGuid:
+      m_GuidLow: 13070743998801941900
+      m_GuidHigh: 6341738774122107419
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Pollen
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4773258607260887989
+      m_GuidHigh: 8456311633538387880
+    m_SerializedTextureGuid:
+      m_GuidLow: 12404191810663481016
+      m_GuidHigh: 9302877737842519450
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Pollination
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5548371978647855759
+      m_GuidHigh: 545011425333874309
+    m_SerializedTextureGuid:
+      m_GuidLow: 8832742562406979207
+      m_GuidHigh: 10036240406002433481
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Pollinators
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4810980918106491849
+      m_GuidHigh: 14591678046409075371
+    m_SerializedTextureGuid:
+      m_GuidLow: 753486411036687093
+      m_GuidHigh: 5961644520884723850
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Veggies
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5742705623782013480
+      m_GuidHigh: 10409713781296195458
+    m_SerializedTextureGuid:
+      m_GuidLow: 13480491514593170404
+      m_GuidHigh: 1722455945042141097
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Wasp
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4992365378436248969
+      m_GuidHigh: 3052640203202447517
+    m_SerializedTextureGuid:
+      m_GuidLow: 4360722560553669397
+      m_GuidHigh: 5645768258150537114
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: Wings
+    m_Texture: {fileID: 0}
