@@ -1,15 +1,43 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 public class ARImageUIController : MonoBehaviour
 {
-    // These need to be public or [SerializeField] so they show in Inspector
     public ARTrackedImageManager trackedImageManager;
-    public GameObject uiPanel;
 
-    // Tracks whether the UI is currently open (thus ignoring further detections)
-    private bool uiOpen = false;
+    [Header("Assign each canvas that matches the image names in the AR Library")]
+    public GameObject BumbleBee;
+    public GameObject Honeybees;
+    public GameObject NativeGarden;
+    public GameObject Nest;
+    public GameObject Pollen;
+    public GameObject Pollinators;
+    public GameObject Pollination;
+    public GameObject Veggies;
+    public GameObject Wasp;
+    public GameObject Wings;
+
+    private Dictionary<string, GameObject> panelDictionary;
+
+    private void Awake()
+    {
+        // Populate the dictionary with your imageName -> GameObject pairs
+        panelDictionary = new Dictionary<string, GameObject>()
+        {
+            { "BumbleBee", BumbleBee },
+            { "Honeybees", Honeybees },
+            { "NativeGarden", NativeGarden },
+            { "Nest", Nest },
+            { "Pollen", Pollen },
+            { "Pollinators", Pollinators },
+            { "Pollination", Pollination },
+            { "Veggies", Veggies },
+            { "Wasp", Wasp },
+            { "Wings", Wings }
+        };
+    }
 
     private void OnEnable()
     {
@@ -23,47 +51,33 @@ public class ARImageUIController : MonoBehaviour
 
     private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
-        // If UI is already open, ignore any new tracking events
-        if (uiOpen) return;
-
-        // Check newly detected images
+        // Handle newly added images
         foreach (var trackedImage in eventArgs.added)
         {
             if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                OpenUI();
+                ActivatePanel(trackedImage.referenceImage.name);
             }
         }
 
-        // Check updated images
+        // Handle updated images
         foreach (var trackedImage in eventArgs.updated)
         {
             if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                OpenUI();
+                ActivatePanel(trackedImage.referenceImage.name);
             }
         }
 
-        // We don't need to handle removed images for this scenario
-        // because once UI is open, we ignore tracking updates
+        // We do not deactivate anything when tracking is lost or removed,
+        // so we ignore eventArgs.removed entirely and do nothing if tracking is lost
     }
 
-    private void OpenUI()
+    private void ActivatePanel(string imageName)
     {
-        uiOpen = true;
-        uiPanel.SetActive(true);
-
-        // Optional: Completely stop new detections:
-        // trackedImageManager.enabled = false;
-    }
-
-    // This method is called by the Close Button on the UI
-    public void CloseUI()
-    {
-        uiOpen = false;
-        uiPanel.SetActive(false);
-
-        // Re-enable detections if you disabled them earlier:
-        // trackedImageManager.enabled = true;
+        if (panelDictionary.TryGetValue(imageName, out GameObject panel))
+        {
+            panel.SetActive(true);
+        }
     }
 }
