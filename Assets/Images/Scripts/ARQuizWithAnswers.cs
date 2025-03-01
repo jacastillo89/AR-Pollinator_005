@@ -125,9 +125,14 @@ public class ARQuizWithAnswers : MonoBehaviour
             if (incorrectFeedback != null)
                 incorrectFeedback.SetActive(false);
 
+            // Deactivate the question object so it's hidden when the answer is shown
+            if (questionDictionary.ContainsKey(currentQuestionName) && questionDictionary[currentQuestionName] != null)
+            {
+                questionDictionary[currentQuestionName].SetActive(false);
+            }
+
             // Activate the correct answer object
-            if (answerDictionary.ContainsKey(currentQuestionName)
-                && answerDictionary[currentQuestionName] != null)
+            if (answerDictionary.ContainsKey(currentQuestionName) && answerDictionary[currentQuestionName] != null)
             {
                 answerDictionary[currentQuestionName].SetActive(true);
             }
