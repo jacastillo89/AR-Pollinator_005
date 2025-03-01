@@ -903,9 +903,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 710223014}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2070,9 +2070,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 131337530}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2434,9 +2434,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 74428236}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3702,9 +3702,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 824615361}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4526,9 +4526,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1230717412}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4949,7 +4949,6 @@ GameObject:
   - component: {fileID: 1517260176}
   - component: {fileID: 1517260175}
   - component: {fileID: 1517260177}
-  - component: {fileID: 1517260178}
   - component: {fileID: 1517260179}
   m_Layer: 0
   m_Name: AR Session Origin
@@ -5006,20 +5005,6 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: 18cce1a3ef224cf498265b8192f79d12, type: 2}
   m_MaxNumberOfMovingImages: 0
   m_TrackedImagePrefab: {fileID: 0}
---- !u!114 &1517260178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517260174}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89b9960faf5af7747874d6247111646c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedImageManager: {fileID: 1517260177}
-  targetObject: {fileID: 710223012}
 --- !u!114 &1517260179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5137,9 +5122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 594882899}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5472,9 +5457,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113372056}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5605,9 +5590,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1412066768}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5738,9 +5723,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1417707684}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6334,9 +6319,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 190530265}
-        m_TargetAssemblyTypeName: DeactivateOnButtonPress, Assembly-CSharp
-        m_MethodName: OnButtonPressed
+      - m_Target: {fileID: 1517260179}
+        m_TargetAssemblyTypeName: ARQuizWithAnswers, Assembly-CSharp
+        m_MethodName: NextQuestion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

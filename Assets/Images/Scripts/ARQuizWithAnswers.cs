@@ -35,42 +35,44 @@ public class ARQuizWithAnswers : MonoBehaviour
     [Header("Feedback")]
     public GameObject incorrectFeedback;
 
+    // INTERNAL DICTIONARIES: Key = reference image name
     private Dictionary<string, GameObject> questionDictionary;
     private Dictionary<string, GameObject> answerDictionary;
 
+    // TRACK CURRENT STATE
     private string currentQuestionName;
-    private bool questionActive;
+    private bool questionActive; // Are we currently waiting for the correct image?
 
     private void Awake()
     {
-        // Build the question dictionary
+        // BUILD THE QUESTION DICTIONARY
         questionDictionary = new Dictionary<string, GameObject>()
         {
-            { "BumbleBee", BumbleBeeQuestion },
-            { "Honeybees", HoneybeesQuestion },
-            { "NativeGarden", NativeGardenQuestion },
-            { "Nest", NestQuestion },
-            { "Pollen", PollenQuestion },
-            { "Pollinators", PollinatorsQuestion },
-            { "Pollination", PollinationQuestion },
-            { "Veggies", VeggiesQuestion },
-            { "Wasp", WaspQuestion },
-            { "Wings", WingsQuestion }
+            { "BumbleBee",     BumbleBeeQuestion },
+            { "Honeybees",     HoneybeesQuestion },
+            { "NativeGarden",  NativeGardenQuestion },
+            { "Nest",          NestQuestion },
+            { "Pollen",        PollenQuestion },
+            { "Pollinators",   PollinatorsQuestion },
+            { "Pollination",   PollinationQuestion },
+            { "Veggies",       VeggiesQuestion },
+            { "Wasp",          WaspQuestion },
+            { "Wings",         WingsQuestion }
         };
 
-        // Build the answer dictionary
+        // BUILD THE ANSWER DICTIONARY
         answerDictionary = new Dictionary<string, GameObject>()
         {
-            { "BumbleBee", BumbleBeeAnswer },
-            { "Honeybees", HoneybeesAnswer },
-            { "NativeGarden", NativeGardenAnswer },
-            { "Nest", NestAnswer },
-            { "Pollen", PollenAnswer },
-            { "Pollinators", PollinatorsAnswer },
-            { "Pollination", PollinationAnswer },
-            { "Veggies", VeggiesAnswer },
-            { "Wasp", WaspAnswer },
-            { "Wings", WingsAnswer }
+            { "BumbleBee",     BumbleBeeAnswer },
+            { "Honeybees",     HoneybeesAnswer },
+            { "NativeGarden",  NativeGardenAnswer },
+            { "Nest",          NestAnswer },
+            { "Pollen",        PollenAnswer },
+            { "Pollinators",   PollinatorsAnswer },
+            { "Pollination",   PollinationAnswer },
+            { "Veggies",       VeggiesAnswer },
+            { "Wasp",          WaspAnswer },
+            { "Wings",         WingsAnswer }
         };
     }
 
@@ -88,90 +90,101 @@ public class ARQuizWithAnswers : MonoBehaviour
 
     private void Start()
     {
-        // Disable all question objects
-        foreach (var q in questionDictionary.Values)
-        {
-            if (q != null)
-                q.SetActive(false);
-        }
-        // Disable all answer objects
-        foreach (var a in answerDictionary.Values)
-        {
-            if (a != null)
-                a.SetActive(false);
-        }
-        // Disable incorrect feedback
-        if (incorrectFeedback != null)
-            incorrectFeedback.SetActive(false);
-
-        // Pick a random key from the question dictionary
-        List<string> keys = new List<string>(questionDictionary.Keys);
-        int randomIndex = Random.Range(0, keys.Count);
-        currentQuestionName = keys[randomIndex];
-
-        // Activate the chosen question
-        if (questionDictionary[currentQuestionName] != null)
-        {
-            questionDictionary[currentQuestionName].SetActive(true);
-        }
-
-        questionActive = true;
-        Debug.Log("[ARQuizWithAnswers] Chosen question: " + currentQuestionName);
+        // PICK INITIAL QUESTION
+        ShowRandomQuestion();
     }
 
+    // -----------------------------------------
+    //  CORE AR IMAGE TRACKING / CHECKING LOGIC
+    // -----------------------------------------
     private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
         if (!questionActive) return;
 
-        // Handle newly added or updated images
+        // Check newly added images
         foreach (var trackedImage in eventArgs.added)
             CheckTrackedImage(trackedImage);
 
+        // Check updated images
         foreach (var trackedImage in eventArgs.updated)
             CheckTrackedImage(trackedImage);
 
-        // We don't handle removed images for this scenario
+        // We ignore removed images for simplicity
     }
 
     private void CheckTrackedImage(ARTrackedImage trackedImage)
     {
-        if (trackedImage.trackingState != TrackingState.Tracking)
-            return;
+        if (trackedImage.trackingState != TrackingState.Tracking) return;
 
         string detectedName = trackedImage.referenceImage.name;
-        Debug.Log("[ARQuizWithAnswers] Detected: " + detectedName
-                  + " | Required: " + currentQuestionName);
-
-        // If the detected image name matches the current question's name
         if (detectedName.Equals(currentQuestionName))
         {
-            // CORRECT ANSWER
-            Debug.Log("[ARQuizWithAnswers] Correct answer!");
+            // CORRECT!
+            Debug.Log("[ARQuiz] Correct answer for: " + currentQuestionName);
 
-            // Hide incorrect feedback if it was active
             if (incorrectFeedback != null)
                 incorrectFeedback.SetActive(false);
 
-            // Activate the corresponding "Answer" GameObject
-            if (answerDictionary.ContainsKey(currentQuestionName) &&
-                answerDictionary[currentQuestionName] != null)
+            // Activate the correct answer object
+            if (answerDictionary.ContainsKey(currentQuestionName)
+                && answerDictionary[currentQuestionName] != null)
             {
                 answerDictionary[currentQuestionName].SetActive(true);
             }
 
             // Mark question as answered
             questionActive = false;
-
-            // You could proceed to next question after a delay, etc.
         }
         else
         {
             // INCORRECT
-            Debug.Log("[ARQuizWithAnswers] Incorrect answer.");
+            Debug.Log("[ARQuiz] Incorrect answer for: " + currentQuestionName);
+
             if (incorrectFeedback != null)
-            {
                 incorrectFeedback.SetActive(true);
-            }
         }
+    }
+
+    // -----------------------------------------
+    //  MOVE TO THE NEXT QUESTION
+    // -----------------------------------------
+    public void NextQuestion()
+    {
+        // This method can be linked to a Button 
+        // on the "answer" UI to move on.
+
+        ShowRandomQuestion();
+    }
+
+    // -----------------------------------------
+    //  HELPER: PICK AND SHOW A RANDOM QUESTION
+    // -----------------------------------------
+    private void ShowRandomQuestion()
+    {
+        // 1) DISABLE ALL QUESTIONS & ANSWERS
+        foreach (var q in questionDictionary.Values)
+        {
+            if (q != null) q.SetActive(false);
+        }
+        foreach (var a in answerDictionary.Values)
+        {
+            if (a != null) a.SetActive(false);
+        }
+
+        // Hide incorrect feedback
+        if (incorrectFeedback != null) incorrectFeedback.SetActive(false);
+
+        // 2) PICK A NEW QUESTION
+        List<string> keys = new List<string>(questionDictionary.Keys);
+        int randomIndex = Random.Range(0, keys.Count);
+        currentQuestionName = keys[randomIndex];
+        Debug.Log("[ARQuiz] Next question: " + currentQuestionName);
+
+        // 3) ACTIVATE THAT QUESTION
+        if (questionDictionary[currentQuestionName] != null)
+            questionDictionary[currentQuestionName].SetActive(true);
+
+        // 4) RE-ENABLE CHECKING LOGIC
+        questionActive = true;
     }
 }
