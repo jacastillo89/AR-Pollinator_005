@@ -35,13 +35,13 @@ public class ARQuizWithAnswers : MonoBehaviour
     [Header("Feedback")]
     public GameObject incorrectFeedback;
 
-    // INTERNAL DICTIONARIES: Key = reference image name
+    // INTERNAL DICTIONARIES
     private Dictionary<string, GameObject> questionDictionary;
     private Dictionary<string, GameObject> answerDictionary;
 
     // TRACK CURRENT STATE
     private string currentQuestionName;
-    private bool questionActive; // Are we currently waiting for the correct image?
+    private bool questionActive;
 
     private void Awake()
     {
@@ -119,13 +119,13 @@ public class ARQuizWithAnswers : MonoBehaviour
         string detectedName = trackedImage.referenceImage.name;
         if (detectedName.Equals(currentQuestionName))
         {
-            // CORRECT!
+            // CORRECT
             Debug.Log("[ARQuiz] Correct answer for: " + currentQuestionName);
 
             if (incorrectFeedback != null)
                 incorrectFeedback.SetActive(false);
 
-            // Deactivate the question object so it's hidden when the answer is shown
+            // Deactivate the question object so it's hidden
             if (questionDictionary.ContainsKey(currentQuestionName) && questionDictionary[currentQuestionName] != null)
             {
                 questionDictionary[currentQuestionName].SetActive(false);
@@ -139,6 +139,14 @@ public class ARQuizWithAnswers : MonoBehaviour
 
             // Mark question as answered
             questionActive = false;
+
+            // -----------------------------------------
+            // CALL THE PROGRESS TRACKER (IMPORTANT!)
+            // -----------------------------------------
+            if (QuizProgressTracker.Instance != null)
+            {
+                QuizProgressTracker.Instance.OnQuestionAnsweredCorrectly();
+            }
         }
         else
         {
@@ -157,7 +165,6 @@ public class ARQuizWithAnswers : MonoBehaviour
     {
         // This method can be linked to a Button 
         // on the "answer" UI to move on.
-
         ShowRandomQuestion();
     }
 
