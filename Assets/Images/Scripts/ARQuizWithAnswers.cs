@@ -103,12 +103,15 @@ public class ARQuizWithAnswers : MonoBehaviour
 
         // Check newly added images
         foreach (var trackedImage in eventArgs.added)
+        {
             CheckTrackedImage(trackedImage);
+        }
 
         // Check updated images
         foreach (var trackedImage in eventArgs.updated)
+        {
             CheckTrackedImage(trackedImage);
-
+        }
         // We ignore removed images for simplicity
     }
 
@@ -125,7 +128,7 @@ public class ARQuizWithAnswers : MonoBehaviour
             if (incorrectFeedback != null)
                 incorrectFeedback.SetActive(false);
 
-            // Deactivate the question object so it's hidden
+            // Deactivate the question object so it's hidden when the answer is shown
             if (questionDictionary.ContainsKey(currentQuestionName) && questionDictionary[currentQuestionName] != null)
             {
                 questionDictionary[currentQuestionName].SetActive(false);
@@ -140,9 +143,13 @@ public class ARQuizWithAnswers : MonoBehaviour
             // Mark question as answered
             questionActive = false;
 
-            // -----------------------------------------
-            // CALL THE PROGRESS TRACKER (IMPORTANT!)
-            // -----------------------------------------
+            // NOTE: Remove the question from the dictionary so it won't show again
+            if (questionDictionary.ContainsKey(currentQuestionName))
+            {
+                questionDictionary.Remove(currentQuestionName);
+            }
+
+            // Notify the progress tracker
             if (QuizProgressTracker.Instance != null)
             {
                 QuizProgressTracker.Instance.OnQuestionAnsweredCorrectly();
@@ -163,8 +170,6 @@ public class ARQuizWithAnswers : MonoBehaviour
     // -----------------------------------------
     public void NextQuestion()
     {
-        // This method can be linked to a Button 
-        // on the "answer" UI to move on.
         ShowRandomQuestion();
     }
 
@@ -184,12 +189,20 @@ public class ARQuizWithAnswers : MonoBehaviour
         }
 
         // Hide incorrect feedback
-        if (incorrectFeedback != null) incorrectFeedback.SetActive(false);
+        if (incorrectFeedback != null)
+            incorrectFeedback.SetActive(false);
 
-        // 2) PICK A NEW QUESTION
-        List<string> keys = new List<string>(questionDictionary.Keys);
-        int randomIndex = Random.Range(0, keys.Count);
-        currentQuestionName = keys[randomIndex];
+        // If there are no more questions, we can stop
+        if (questionDictionary.Count == 0)
+        {
+            Debug.Log("[ARQuiz] No more questions left!");
+            return;
+        }
+
+        // 2) PICK A NEW QUESTION from those remaining
+        List<string> availableQuestions = new List<string>(questionDictionary.Keys);
+        int randomIndex = Random.Range(0, availableQuestions.Count);
+        currentQuestionName = availableQuestions[randomIndex];
         Debug.Log("[ARQuiz] Next question: " + currentQuestionName);
 
         // 3) ACTIVATE THAT QUESTION
