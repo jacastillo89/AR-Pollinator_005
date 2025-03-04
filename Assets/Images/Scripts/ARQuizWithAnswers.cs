@@ -143,7 +143,7 @@ public class ARQuizWithAnswers : MonoBehaviour
             // Mark question as answered
             questionActive = false;
 
-            // NOTE: Remove the question from the dictionary so it won't show again
+            // Remove the question so it won't show again
             if (questionDictionary.ContainsKey(currentQuestionName))
             {
                 questionDictionary.Remove(currentQuestionName);
@@ -170,7 +170,16 @@ public class ARQuizWithAnswers : MonoBehaviour
     // -----------------------------------------
     public void NextQuestion()
     {
-        ShowRandomQuestion();
+        // If we've already answered enough questions to "win," show the win object now.
+        // (This ensures the user sees the 5th answer and THEN triggers the win UI on the button.)
+        if (QuizProgressTracker.Instance != null && QuizProgressTracker.Instance.HasReachedWinCondition())
+        {
+            QuizProgressTracker.Instance.TriggerWinState();
+        }
+        else
+        {
+            ShowRandomQuestion();
+        }
     }
 
     // -----------------------------------------
@@ -211,5 +220,61 @@ public class ARQuizWithAnswers : MonoBehaviour
 
         // 4) RE-ENABLE CHECKING LOGIC
         questionActive = true;
+    }
+
+    // -----------------------------------------
+    //  RESTART THE GAME
+    // -----------------------------------------
+    public void RestartGame()
+    {
+        // 1) Clear the dictionaries
+        questionDictionary.Clear();
+        answerDictionary.Clear();
+
+        // 2) Re-populate them exactly as in Awake()
+        questionDictionary.Add("BumbleBee", BumbleBeeQuestion);
+        questionDictionary.Add("Honeybees", HoneybeesQuestion);
+        questionDictionary.Add("NativeGarden", NativeGardenQuestion);
+        questionDictionary.Add("Nest", NestQuestion);
+        questionDictionary.Add("Pollen", PollenQuestion);
+        questionDictionary.Add("Pollinators", PollinatorsQuestion);
+        questionDictionary.Add("Pollination", PollinationQuestion);
+        questionDictionary.Add("Veggies", VeggiesQuestion);
+        questionDictionary.Add("Wasp", WaspQuestion);
+        questionDictionary.Add("Wings", WingsQuestion);
+
+        answerDictionary.Add("BumbleBee", BumbleBeeAnswer);
+        answerDictionary.Add("Honeybees", HoneybeesAnswer);
+        answerDictionary.Add("NativeGarden", NativeGardenAnswer);
+        answerDictionary.Add("Nest", NestAnswer);
+        answerDictionary.Add("Pollen", PollenAnswer);
+        answerDictionary.Add("Pollinators", PollinatorsAnswer);
+        answerDictionary.Add("Pollination", PollinationAnswer);
+        answerDictionary.Add("Veggies", VeggiesAnswer);
+        answerDictionary.Add("Wasp", WaspAnswer);
+        answerDictionary.Add("Wings", WingsAnswer);
+
+        // 3) Hide everything
+        foreach (var qObj in questionDictionary.Values)
+        {
+            if (qObj != null) qObj.SetActive(false);
+        }
+        foreach (var aObj in answerDictionary.Values)
+        {
+            if (aObj != null) aObj.SetActive(false);
+        }
+        if (incorrectFeedback != null)
+            incorrectFeedback.SetActive(false);
+
+        questionActive = false;
+
+        // 4) Reset the quiz progress
+        if (QuizProgressTracker.Instance != null)
+        {
+            QuizProgressTracker.Instance.ResetProgress();
+        }
+
+        // 5) Start over with the first question
+        ShowRandomQuestion();
     }
 }

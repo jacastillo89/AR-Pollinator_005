@@ -20,6 +20,7 @@ public class QuizProgressTracker : MonoBehaviour
 
     private void Awake()
     {
+        // Standard singleton pattern
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -28,6 +29,7 @@ public class QuizProgressTracker : MonoBehaviour
         Instance = this;
     }
 
+    // Called by ARQuizWithAnswers when a question is answered correctly
     public void OnQuestionAnsweredCorrectly()
     {
         correctAnswersCount++;
@@ -53,19 +55,47 @@ public class QuizProgressTracker : MonoBehaviour
             }
         }
 
-        // 3) Check for "win" condition
-        if (correctAnswersCount >= questionsToWin)
-        {
-            TriggerWinState();
-        }
+        // 3) Check for "win" condition, but *do not* activate it immediately.
+        //    We simply note that we've reached the condition. ARQuizWithAnswers
+        //    will show the Win screen on the next button press instead.
+        // if (correctAnswersCount >= questionsToWin)
+        // {
+        //     TriggerWinState(); // <-- Removed or commented out, so we don't show the Win UI right now
+        // }
     }
 
-    private void TriggerWinState()
+    // ARQuizWithAnswers will call this to see if we reached 5 correct answers
+    public bool HasReachedWinCondition()
     {
-        Debug.Log("You won!");
+        return correctAnswersCount >= questionsToWin;
+    }
+
+    // Actually show the Win UI
+    public void TriggerWinState()
+    {
+        Debug.Log("You won! Triggering the win UI...");
         if (winUI != null)
         {
             winUI.SetActive(true);
+        }
+    }
+
+    // Reset the internal progress so that the quiz can be fully replayed
+    public void ResetProgress()
+    {
+        correctAnswersCount = 0;
+        if (winUI != null)
+        {
+            winUI.SetActive(false);
+        }
+
+        // Optionally deactivate any objects that might still be active
+        foreach (GameObject obj in objectsToActivateInOrder)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
         }
     }
 }
