@@ -277,4 +277,8 @@ public class ARQuizWithAnswers : MonoBehaviour
         // 5) Start over with the first question
         ShowRandomQuestion();
     }
+    public string GetCurrentQuestionName()
+    {
+        return currentQuestionName;
+    }
 }
