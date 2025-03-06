@@ -43,6 +43,9 @@ public class ARQuizWithAnswers : MonoBehaviour
     private string currentQuestionName;
     private bool questionActive;
 
+    // NEW: Track which answer is currently displayed
+    private string currentAnswerName;
+
     private void Awake()
     {
         // BUILD THE QUESTION DICTIONARY
@@ -138,6 +141,9 @@ public class ARQuizWithAnswers : MonoBehaviour
             if (answerDictionary.ContainsKey(currentQuestionName) && answerDictionary[currentQuestionName] != null)
             {
                 answerDictionary[currentQuestionName].SetActive(true);
+
+                // NEW: Store the name of the currently displayed answer
+                currentAnswerName = currentQuestionName;
             }
 
             // Mark question as answered
@@ -200,6 +206,9 @@ public class ARQuizWithAnswers : MonoBehaviour
         // Hide incorrect feedback
         if (incorrectFeedback != null)
             incorrectFeedback.SetActive(false);
+
+        // Optionally, clear out the currentAnswerName since no answer is displayed yet
+        currentAnswerName = null;
 
         // If there are no more questions, we can stop
         if (questionDictionary.Count == 0)
@@ -268,6 +277,9 @@ public class ARQuizWithAnswers : MonoBehaviour
 
         questionActive = false;
 
+        // Optionally reset the current answer name
+        currentAnswerName = null;
+
         // 4) Reset the quiz progress
         if (QuizProgressTracker.Instance != null)
         {
@@ -277,8 +289,16 @@ public class ARQuizWithAnswers : MonoBehaviour
         // 5) Start over with the first question
         ShowRandomQuestion();
     }
+
+    // EXISTING GETTER FOR THE CURRENT QUESTION
     public string GetCurrentQuestionName()
     {
         return currentQuestionName;
+    }
+
+    // NEW GETTER FOR THE CURRENT ANSWER
+    public string GetCurrentAnswerName()
+    {
+        return currentAnswerName;
     }
 }
