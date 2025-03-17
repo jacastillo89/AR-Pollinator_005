@@ -43,7 +43,7 @@ public class ARQuizWithAnswers : MonoBehaviour
     private string currentQuestionName;
     private bool questionActive;
 
-    // NEW: Track which answer is currently displayed
+    // Track which answer is currently displayed
     private string currentAnswerName;
 
     private void Awake()
@@ -82,13 +82,17 @@ public class ARQuizWithAnswers : MonoBehaviour
     private void OnEnable()
     {
         if (trackedImageManager != null)
+        {
             trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+        }
     }
 
     private void OnDisable()
     {
         if (trackedImageManager != null)
+        {
             trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+        }
     }
 
     private void Start()
@@ -125,24 +129,34 @@ public class ARQuizWithAnswers : MonoBehaviour
         string detectedName = trackedImage.referenceImage.name;
         if (detectedName.Equals(currentQuestionName))
         {
-            // CORRECT
+            // ---------- CORRECT ANSWER ----------
             Debug.Log("[ARQuiz] Correct answer for: " + currentQuestionName);
 
             if (incorrectFeedback != null)
                 incorrectFeedback.SetActive(false);
 
-            // Deactivate the question object so it's hidden when the answer is shown
-            if (questionDictionary.ContainsKey(currentQuestionName) && questionDictionary[currentQuestionName] != null)
+            // Hide the question
+            if (questionDictionary.ContainsKey(currentQuestionName)
+                && questionDictionary[currentQuestionName] != null)
             {
                 questionDictionary[currentQuestionName].SetActive(false);
             }
 
-            // Activate the correct answer object
-            if (answerDictionary.ContainsKey(currentQuestionName) && answerDictionary[currentQuestionName] != null)
+            // Show the correct answer
+            if (answerDictionary.ContainsKey(currentQuestionName)
+                && answerDictionary[currentQuestionName] != null)
             {
                 answerDictionary[currentQuestionName].SetActive(true);
 
-                // NEW: Store the name of the currently displayed answer
+                // === NEW SOUND LOGIC FOR CORRECT ANSWER ===
+                // 1) Make sure each "Answer" object has an AudioSource if you want a sound to play
+                AudioSource correctSFX = answerDictionary[currentQuestionName].GetComponent<AudioSource>();
+                if (correctSFX != null)
+                {
+                    correctSFX.Play();
+                }
+
+                // Track which answer is active
                 currentAnswerName = currentQuestionName;
             }
 
@@ -163,11 +177,20 @@ public class ARQuizWithAnswers : MonoBehaviour
         }
         else
         {
-            // INCORRECT
+            // ---------- INCORRECT ANSWER ----------
             Debug.Log("[ARQuiz] Incorrect answer for: " + currentQuestionName);
 
             if (incorrectFeedback != null)
+            {
                 incorrectFeedback.SetActive(true);
+
+                // Play the "incorrect" sound
+                AudioSource sfx = incorrectFeedback.GetComponent<AudioSource>();
+                if (sfx != null)
+                {
+                    sfx.Play();
+                }
+            }
         }
     }
 
@@ -176,8 +199,7 @@ public class ARQuizWithAnswers : MonoBehaviour
     // -----------------------------------------
     public void NextQuestion()
     {
-        // If we've already answered enough questions to "win," show the win object now.
-        // (This ensures the user sees the 5th answer and THEN triggers the win UI on the button.)
+        // If we've answered enough questions to "win," show the win UI
         if (QuizProgressTracker.Instance != null && QuizProgressTracker.Instance.HasReachedWinCondition())
         {
             QuizProgressTracker.Instance.TriggerWinState();
@@ -207,17 +229,17 @@ public class ARQuizWithAnswers : MonoBehaviour
         if (incorrectFeedback != null)
             incorrectFeedback.SetActive(false);
 
-        // Optionally, clear out the currentAnswerName since no answer is displayed yet
+        // No answer displayed yet
         currentAnswerName = null;
 
-        // If there are no more questions, we can stop
+        // If there are no more questions, stop
         if (questionDictionary.Count == 0)
         {
             Debug.Log("[ARQuiz] No more questions left!");
             return;
         }
 
-        // 2) PICK A NEW QUESTION from those remaining
+        // 2) PICK A RANDOM QUESTION from those remaining
         List<string> availableQuestions = new List<string>(questionDictionary.Keys);
         int randomIndex = Random.Range(0, availableQuestions.Count);
         currentQuestionName = availableQuestions[randomIndex];
@@ -225,7 +247,9 @@ public class ARQuizWithAnswers : MonoBehaviour
 
         // 3) ACTIVATE THAT QUESTION
         if (questionDictionary[currentQuestionName] != null)
+        {
             questionDictionary[currentQuestionName].SetActive(true);
+        }
 
         // 4) RE-ENABLE CHECKING LOGIC
         questionActive = true;
@@ -276,8 +300,6 @@ public class ARQuizWithAnswers : MonoBehaviour
             incorrectFeedback.SetActive(false);
 
         questionActive = false;
-
-        // Optionally reset the current answer name
         currentAnswerName = null;
 
         // 4) Reset the quiz progress
@@ -286,17 +308,17 @@ public class ARQuizWithAnswers : MonoBehaviour
             QuizProgressTracker.Instance.ResetProgress();
         }
 
-        // 5) Start over with the first question
+        // 5) Start the quiz again
         ShowRandomQuestion();
     }
 
-    // EXISTING GETTER FOR THE CURRENT QUESTION
+    // GET THE CURRENT QUESTION
     public string GetCurrentQuestionName()
     {
         return currentQuestionName;
     }
 
-    // NEW GETTER FOR THE CURRENT ANSWER
+    // GET THE CURRENT ANSWER
     public string GetCurrentAnswerName()
     {
         return currentAnswerName;

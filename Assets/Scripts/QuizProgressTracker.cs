@@ -16,6 +16,12 @@ public class QuizProgressTracker : MonoBehaviour
     // Drag your "progress" objects here in the order you want them to appear
     public List<GameObject> objectsToActivateInOrder;
 
+    // -----------------------------------------
+    // Reference to an AudioSource
+    // -----------------------------------------
+    [Header("Audio Source for Win Sound")]
+    public AudioSource winAudioSource;
+
     private int correctAnswersCount;
 
     private void Awake()
@@ -54,7 +60,7 @@ public class QuizProgressTracker : MonoBehaviour
             objectsToActivateInOrder[correctAnswersCount].SetActive(true);
         }
 
-        // 4) (Optional) Check for "win" condition here, or handle externally
+        // (Optional) Check for "win" condition
         // if (correctAnswersCount >= questionsToWin)
         // {
         //     TriggerWinState();
@@ -73,7 +79,16 @@ public class QuizProgressTracker : MonoBehaviour
         Debug.Log("You won! Triggering the win UI...");
         if (winUI != null)
         {
+            // Activate the Win UI
             winUI.SetActive(true);
+
+            // -----------------------------------------
+            // (New) Play the victory sound if assigned
+            // -----------------------------------------
+            if (winAudioSource != null)
+            {
+                winAudioSource.Play();
+            }
         }
     }
 

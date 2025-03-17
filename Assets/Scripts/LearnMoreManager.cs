@@ -6,6 +6,10 @@ public class LearnMoreManager : MonoBehaviour
     [Header("Reference to the AR Quiz")]
     public ARQuizWithAnswers arQuiz;
 
+    [Header("Audio Source for playing info audio")]
+    // Drag your AudioSource into this field in the Inspector
+    public AudioSource infoAudioSource;
+
     [Header("Extra Info Objects (keyed by the same name as answers)")]
     public GameObject BumbleBeeExtraInfo;
     public GameObject HoneybeesExtraInfo;
@@ -50,14 +54,13 @@ public class LearnMoreManager : MonoBehaviour
     /// </summary>
     public void ShowExtraInfo()
     {
-        // 1) Ensure we can access ARQuizWithAnswers
         if (arQuiz == null)
         {
             Debug.LogWarning("[LearnMoreManager] No reference to ARQuizWithAnswers!");
             return;
         }
 
-        // 2) Grab the name of the currently active answer
+        // 1) Grab the name of the currently active answer
         string answerName = arQuiz.GetCurrentAnswerName();
         if (string.IsNullOrEmpty(answerName))
         {
@@ -65,14 +68,23 @@ public class LearnMoreManager : MonoBehaviour
             return;
         }
 
-        // 3) Activate the matching extra info object
+        // 2) If we have an entry in the dictionary for this answer
         if (extraInfoDictionary.ContainsKey(answerName) && extraInfoDictionary[answerName] != null)
         {
-            // Optional: Hide all other extra info if you only want one visible at a time
+            // Hide any previously shown extra info if you only want one panel visible
             HideAllExtraInfo();
 
+            // Show the relevant extra info panel
             extraInfoDictionary[answerName].SetActive(true);
             Debug.Log("[LearnMoreManager] Showing extra info for: " + answerName);
+
+            // 3) Play the audio clip (if assigned)
+            // Make sure infoAudioSource is assigned in the Inspector
+            if (infoAudioSource != null)
+            {
+                // If the Audio Source has a clip, this will play it
+                infoAudioSource.Play();
+            }
         }
         else
         {
