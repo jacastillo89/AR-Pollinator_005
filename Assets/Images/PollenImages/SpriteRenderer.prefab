@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3628721290236728982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295169242775901666}
+  - component: {fileID: 246276691321062405}
+  m_Layer: 5
+  m_Name: SpriteRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1295169242775901666
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628721290236728982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &246276691321062405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628721290236728982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d3439c35a3800458537ffa68382973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frames:
+  - {fileID: 21300000, guid: 8dfbc5c2c4cc50b459e1678245a3a286, type: 3}
+  - {fileID: 21300000, guid: bfe22d2de12edc7468ce0bb04febc3bb, type: 3}
+  - {fileID: 21300000, guid: ac40d24505c784f4eb0837d2de69a67b, type: 3}
+  - {fileID: 21300000, guid: 7a951486888c80043a6305de43b6e62b, type: 3}
+  - {fileID: 21300000, guid: 72f2757a2e1eada4f8727dd7126ea73b, type: 3}
+  - {fileID: 21300000, guid: 7fd4b0faa48bc0945b15b3b2de0dca65, type: 3}
+  - {fileID: 21300000, guid: ba641de458739cc468af4ffbfbfd1a20, type: 3}
+  - {fileID: 21300000, guid: cb563ce164f8df543820489e3b05ef29, type: 3}
+  - {fileID: 21300000, guid: 99b9513c86dfc614bba376e50ccd4097, type: 3}
+  - {fileID: 21300000, guid: 948c20efad041624e81018e6d97ce8f0, type: 3}
+  - {fileID: 21300000, guid: c10320e35e85c4c4bb6ac6bd8e5455e0, type: 3}
+  - {fileID: 21300000, guid: 1a58ea56867dbf645b731e5454f8ae5d, type: 3}
+  - {fileID: 21300000, guid: 008026bdc81032c4193a154658b9e009, type: 3}
+  - {fileID: 21300000, guid: 171d4ae494de718489f658455c68075f, type: 3}
+  - {fileID: 21300000, guid: 6abf7eb3240d96a4d968f2ead6c2708f, type: 3}
+  - {fileID: 21300000, guid: f595a53b9ea4b3749803242646a9b9e2, type: 3}
+  - {fileID: 21300000, guid: 6c41bbc28cee9734aad8092a04f8dc68, type: 3}
+  - {fileID: 21300000, guid: 2f54ae1dddefad14f8966d98738ed3e7, type: 3}
+  - {fileID: 21300000, guid: 67c13c9f76a1b1e49b61efb856567683, type: 3}
+  - {fileID: 21300000, guid: e6c8440377bcdbe44adcbb191dc5812d, type: 3}
+  - {fileID: 21300000, guid: d60b89b294bc1d94184b8b2203445cd4, type: 3}
+  - {fileID: 21300000, guid: 0106c4394c4909a4593789c9b376d30b, type: 3}
+  - {fileID: 21300000, guid: afc39ac8d7b757b4cb8fb5784cdd33b6, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: bea9d6daec17c5e4d94acb3ee9801bc5, type: 3}
+  - {fileID: 21300000, guid: 33c7723659b2f624c979305ede9db809, type: 3}
